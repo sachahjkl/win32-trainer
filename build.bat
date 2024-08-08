@@ -4,6 +4,7 @@
 set BUILD_DIR=build
 set APP_NAME=app
 set NEXT_DEST=eof
+set ASSET_DIR=assets
 set DEFAULT_FLAGS=/GS /analyze- /W3 /Zc:wchar_t /Zi /Zc:inline  /fp:precise /WX- /Zc:forScope /Gd /Oy- /EHsc /errorReport:prompt
 set DEFAULT_DEFINES=/D "WIN32" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE"
 set RELEASE_FLAGS=/GL /Gy /Gm- /O2 /Oi /MD 
@@ -15,8 +16,8 @@ set MORE_FLAGS=
 if "%LIBS%" == "" set LIBS= user32.lib Gdi32.lib
 
 @REM Check first arg value and goto the appropriate task
-if "%1" == "release" goto :build
 if "%1" == "debug" goto :build
+if "%1" == "release" goto :build
 if "%1" == "clean" goto :clean
 if "%1" == "shell" goto :shell
 goto :usage
@@ -58,24 +59,24 @@ echo ** Target executable: "%APP_NAME%.exe"
 echo ********************************************************************************
 echo.
 
-echo Create build directory (if not exists).
+echo Creating build directory (if not exists).
 @if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 
-echo Compile the resource file.
-rc /D%CONFIGURATION% /nologo /fo%BUILD_DIR%/%APP_NAME%.res %APP_NAME%.rc
+echo Compiling the resource file.
+rc /D%CONFIGURATION% /nologo /fo%BUILD_DIR%/%APP_NAME%.res %ASSET_DIR%/%APP_NAME%.rc
 
-echo Compile the application in "%CONFIGURATION%" mode.
+echo Compiling the application in "%CONFIGURATION%" mode.
 cl /nologo /source-charset:utf-8  /Fe:%BUILD_DIR%/%APP_NAME%.exe /Fo:%BUILD_DIR%/ /Fd:%BUILD_DIR%/vc140.pdb^
  %DEFAULT_DEFINES% %DEFAULT_FLAGS% %FLAGS% %MORE_FLAGS%^
  /D%CONFIGURATION%^
  .\%APP_NAME%.c %LIBS% %BUILD_DIR%/%APP_NAME%.res^
  /link /incremental:no
 
-echo Apply the manifest to the executable.
-mt.exe /nologo /manifest %APP_NAME%.manifest /outputresource:%BUILD_DIR%/%APP_NAME%.exe;1 
+echo Applying the manifest to the executable.
+mt.exe /nologo /manifest %ASSET_DIR%/%APP_NAME%.manifest /outputresource:%BUILD_DIR%/%APP_NAME%.exe;1 
 
 echo.
-echo Compilation complete!
+echo Compilation done!
 
 @REM end of build task
 goto :%NEXT_DEST%
