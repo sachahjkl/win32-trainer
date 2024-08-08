@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "type": "process",
+      "label": "Run build.bat script",
+      "command": "build.bat",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        {
+          "base": "$msCompile",
+          "fileLocation": ["autoDetect", "${workspaceFolder}"]
+        }
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Builds the project."
+    },
+    {
+      "type": "shell",
+      "label": "Clean build directory",
+      "command": "cmd.exe",
+      "args": ["/c", "rmdir /s /q build"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Deletes the build directory."
+    }
+  ],
+  "version": "2.0.0"
+}

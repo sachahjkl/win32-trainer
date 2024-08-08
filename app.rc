@@ -1,0 +1,39 @@
+#include <windows.h>
+
+MUGSHOT BITMAP ./assets/mugshot.bmp
+
+#define APP_NAME "sachahjkl (C) demo application\0"
+#define APP_VERSION "0.1.0.0"
+
+#define APP_FILE_VERSION APP_VERSION "\0"
+
+#ifndef DEBUG
+#define APP_PRODUCT_VERSION APP_VERSION " RELEASE\0"
+#else
+#define APP_PRODUCT_VERSION APP_VERSION " DEBUG\0"
+#endif
+
+
+// Version information for this executable
+VS_VERSION_INFO VERSIONINFO
+    FILEVERSION    0,1,0,0
+    PRODUCTVERSION 0,1,0,0
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "040904b0"
+        {
+            VALUE "CompanyName",        "sachahjkl.\0"
+            VALUE "FileDescription",    APP_NAME
+            VALUE "FileVersion",        APP_VERSION
+            VALUE "LegalCopyright",     "(C) sachahjkl, Inc 2024\0"
+            VALUE "OriginalFilename",   "app.exe\0"
+            VALUE "ProductName",        APP_NAME
+            VALUE "ProductVersion",     APP_PRODUCT_VERSION
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x409, 1200
+    }
+}
