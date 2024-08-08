@@ -85,3 +85,5 @@ $RECYCLE.BIN/
 
 # Build resource files
 *.res
+
+build/
