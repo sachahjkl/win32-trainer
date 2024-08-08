@@ -4,7 +4,7 @@ This is a demo application for learning purposes.
 It is a simple bitmap application that allows you to draw a bitmap on the screen and drag it around. 
 The bitmap is loaded from a resource file and can be resized by dragging the bottom right corner.
 
-![screenshot](screenshot.png)
+![screenshot](screenshots/screenshot.png)
 
 ## Features (For now)
 
