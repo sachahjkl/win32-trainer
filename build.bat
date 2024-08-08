@@ -88,6 +88,7 @@ goto :%NEXT_DEST%
 :clean
 del /q %BUILD_DIR%
 rmdir /q /s %BUILD_DIR%
+echo Build directory cleaned.
 goto :%NEXT_DEST%
 
 :usage

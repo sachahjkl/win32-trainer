@@ -38,8 +38,8 @@
       "detail": "Builds the project."
     },
     {
+      "type": "process",
       "label": "Clean build directory",
-      "type": "shell",
       "command": "build.bat",
       "args": ["clean"],
       "options": {
