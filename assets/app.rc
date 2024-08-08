@@ -1,6 +1,7 @@
 #include <windows.h>
 
 MUGSHOT BITMAP ./assets/mugshot.bmp
+APP_ICON ICON ./assets/app.ico
 
 #define APP_NAME "sachahjkl (C) demo application\0"
 #define APP_VERSION "0.1.0.0"

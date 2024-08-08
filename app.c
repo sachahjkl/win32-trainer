@@ -34,6 +34,7 @@ int WINAPI wWinMain(HINSTANCE Instance, HINSTANCE PreviousInstance, PWSTR CmdLin
     Class.hInstance = Instance;
     Class.lpszClassName = CLASS_NAME;
     Class.cbWndExtra = sizeof(Context);
+    Class.hIcon = LoadIcon(Instance, L"APP_ICON");
 
     RegisterClass(&Class);
 
