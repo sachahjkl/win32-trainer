@@ -5,15 +5,26 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Build and Debug",
+      "name": "Debug",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "build\\app.exe",
+      "program": "build\\debug\\app.exe",
       "cwd": "${workspaceFolder}",
       "args": [],
       "stopAtEntry": false,
       "environment": [],
-      "preLaunchTask": "Run build.bat script"
+      "preLaunchTask": "Build in debug mode"
+    },
+    {
+      "name": "Release",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "build\\release\\app.exe",
+      "cwd": "${workspaceFolder}",
+      "args": [],
+      "stopAtEntry": false,
+      "environment": [],
+      "preLaunchTask": "Build in release mode"
     }
   ]
 }

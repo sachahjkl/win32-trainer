@@ -2,8 +2,9 @@
   "tasks": [
     {
       "type": "process",
-      "label": "Run build.bat script",
+      "label": "Build in debug mode",
       "command": "build.bat",
+      "args": ["debug"],
       "options": {
         "cwd": "${workspaceFolder}"
       },
@@ -20,10 +21,27 @@
       "detail": "Builds the project."
     },
     {
-      "type": "shell",
+      "type": "process",
+      "label": "Build in release mode",
+      "command": "build.bat",
+      "args": ["release"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        {
+          "base": "$msCompile",
+          "fileLocation": ["autoDetect", "${workspaceFolder}"]
+        }
+      ],
+      "group": "build",
+      "detail": "Builds the project."
+    },
+    {
       "label": "Clean build directory",
-      "command": "cmd.exe",
-      "args": ["/c", "rmdir /s /q build"],
+      "type": "shell",
+      "command": "build.bat",
+      "args": ["clean"],
       "options": {
         "cwd": "${workspaceFolder}"
       },
