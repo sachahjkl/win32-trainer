@@ -26,7 +26,7 @@ goto :usage
 :build
 
 @REM Check if "cl"is a known command, if not, load the x64 tools
-@WHERE cl
+@WHERE /q cl
 IF %ERRORLEVEL% NEQ 0 (
     @REM Set the next destination to come back to after the shell
     set NEXT_DEST=after_cl 
@@ -39,36 +39,50 @@ set NEXT_DEST=eof
 @REM Default build configuration
 set CONFIGURATION=DEBUG
 if "%1" == "release" (
-    set CONFIGURATION=CONFIG_RELEASE
+    set CONFIGURATION=RELEASE
     set FLAGS=%RELEASE_FLAGS%
     set BUILD_DIR=%BUILD_DIR%\release
 ) else if "%1" == "debug" (
-    set CONFIGURATION=CONFIG_DEBUG
+    set CONFIGURATION=DEBUG
     set FLAGS=%DEBUG_FLAGS%
     set BUILD_DIR=%BUILD_DIR%\debug
 )
+echo.
+echo ********************************************************************************
+echo ** Building in "%CONFIGURATION%" mode
+echo ** Flags: "%FLAGS%"
+echo ** Libraries: "%LIBS%"
+echo ** Build directory: "%BUILD_DIR%"
+echo ** Resource file: "%APP_NAME%.rc"
+echo ** Target executable: "%APP_NAME%.exe"
+echo ********************************************************************************
+echo.
 
-@REM Create build directory
-@mkdir %BUILD_DIR%
+echo Create build directory (if not exists).
+@if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 
-@REM Compile the resource file.
+echo Compile the resource file.
 rc /D%CONFIGURATION% /nologo /fo%BUILD_DIR%/%APP_NAME%.res %APP_NAME%.rc
 
-@REM Compile the application w/ verbose output.
+echo Compile the application in "%CONFIGURATION%" mode.
 cl /nologo /source-charset:utf-8  /Fe:%BUILD_DIR%/%APP_NAME%.exe /Fo:%BUILD_DIR%/ /Fd:%BUILD_DIR%/vc140.pdb^
  %DEFAULT_DEFINES% %DEFAULT_FLAGS% %FLAGS% %MORE_FLAGS%^
+ /D%CONFIGURATION%^
  .\%APP_NAME%.c %LIBS% %BUILD_DIR%/%APP_NAME%.res^
  /link /incremental:no
 
-@REM Apply the manifest to the executable.
+echo Apply the manifest to the executable.
 mt.exe /nologo /manifest %APP_NAME%.manifest /outputresource:%BUILD_DIR%/%APP_NAME%.exe;1 
+
+echo.
+echo Compilation complete!
 
 @REM end of build task
 goto :%NEXT_DEST%
 
 :shell
 REM Load x64 tools to our PATH
-%comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
 goto :%NEXT_DEST%
 
 :clean
