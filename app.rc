@@ -13,7 +13,6 @@ MUGSHOT BITMAP ./assets/mugshot.bmp
 #define APP_PRODUCT_VERSION APP_VERSION " DEBUG\0"
 #endif
 
-
 // Version information for this executable
 VS_VERSION_INFO VERSIONINFO
     FILEVERSION    0,1,0,0
