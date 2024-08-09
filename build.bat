@@ -1,7 +1,9 @@
 @echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
 
 :: Default global variables
 set CONFIGURATION=DEBUG
+set PLATFORM=x64
 set BUILD_DIR=build
 set APP_NAME=app
 set NEXT_DEST=eof
@@ -20,7 +22,7 @@ if "%LIBS%" == "" set LIBS= user32.lib Gdi32.lib
 if "%1" == "debug" goto :build
 if "%1" == "release" goto :build
 if "%1" == "clean" goto :clean
-if "%1" == "shell" goto :shell
+if "%1" == "shell" && goto :shell
 goto :usage
 
 :: Build task
@@ -56,7 +58,7 @@ SET APP_EXE=%BUILD_DIR%\%APP_NAME%.exe
 
 echo.
 echo ********************************************************************************
-echo ** Building in "%CONFIGURATION%" mode
+echo ** Building in %PLATFORM% "%CONFIGURATION%" mode
 echo ** Flags: "%FLAGS%"
 echo ** Libraries: "%LIBS%"
 echo ** Build directory: "%BUILD_DIR%"
@@ -98,11 +100,13 @@ goto :%NEXT_DEST%
 :shell
 :: Load x64 tools to our PATH
 :: We look inside every possible version of visual studio 2022
-set SEARCH_DIR="C:\Program Files\Microsoft Visual Studio\2022"
-set TARGET_SUBPATH="VC\Auxiliary\Build\vcvarsall.bat"
-for /f "delims=|" %%f in ('dir /b %SEARCH_DIR%') do (
-    @call "%SEARCH_DIR%\%f%\%TARGET_SUBPATH%" x64
-    IF %ERRORLEVEL% EQU 0 goto :%NEXT_DEST%
+set SEARCH_DIR=C:\Program Files\Microsoft Visual Studio\2022
+set TARGET_SUBPATH=VC\Auxiliary\Build\vcvarsall.bat
+
+for /D %%d in ("%SEARCH_DIR%\*") do (
+    echo Found "%%d\%TARGET_SUBPATH%". Applying now...
+    call "%%d\%TARGET_SUBPATH%" %PLATFORM%
+    IF !ERRORLEVEL! EQU 0 goto :%NEXT_DEST%                                                                                                                                                                                                                                
 )
 
 echo.
