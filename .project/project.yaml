@@ -1,0 +1,10 @@
+name: "win32-trainer"
+description: "Fiddling with Win32 APIs (to *actually* learn how real OSes define their APIs)"
+topics:
+  - "Win32 API"
+  - "windows"
+homepage: ""
+source:
+  provider: gitlab
+  namespace: "sachahjkl"
+  path: "sachahjkl/win32-trainer"
