@@ -1,0 +1,2 @@
+name=win32-trainer
+description=Fiddling with Win32 APIs (to *actually* learn how real OSes define their APIs)
