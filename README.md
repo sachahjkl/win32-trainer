@@ -1,3 +1,5 @@
+[English](README.md) | [Français](README.fr.md)
+
 # Win32 Demo Application
 
 This is a demo application for learning purposes. 
